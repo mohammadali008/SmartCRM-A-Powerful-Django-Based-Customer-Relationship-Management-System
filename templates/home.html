@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+{% if user.is_authenticated %}
+
+    <h1>Hellow</h1>
+
+
+<table class="table table-striped table-hover table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">نام</th>
+      <th scope="col">ایمیل</th>
+      <th scope="col">موبایل</th>
+      <th scope="col">نشانی</th>
+      <th scope="col">شهر</th>
+      <th scope="col">استان</th>
+      <th scope="col">توضیحات</th>
+      <th scope="col">تاریخ تولد</th>
+      <th scope="col">نحوه آشنایی</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+{% if customers %}
+	{% for customer in customers %}
+		<tr>
+			<td>{{ customer.first_name }} {{ customer.last_name }}</td>
+			<td>{{ customer.email }}</td>
+			<td>{{ customer.phone_number }}</td>
+			<td>{{ customer.address }}</td>
+			<td>{{ customer.city }}</td>
+			<td>{{ customer.state }}</td>
+			<td>{{ customer.description }}</td>
+			<td>{{ customer.date_of_birth }}</td>
+			<td>{{ customer.relationship }}</td>
+{#			<td><a href="{% url 'home' customer.id %}">{{ record.id }}</a></td>#}
+{#			<td><button type="button" class="btn btn-info"><a href="{% url 'add_record' %}">Info</a></button></td>#}
+			<td><a href="{% url 'customer_info' customer.id %}"
+                   class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Info</a></td>
+		</tr>
+	{% endfor %}
+
+{% endif %}
+
+	
+	  </tbody>
+	</table>
+
+
+
+
+
+{% else %}
+
+<div class="col-md-6 offset-md-3">
+<h1>Login</h1>
+<br/>
+
+<form method="POST">
+	{% csrf_token %}
+
+  <div class="mb-3">
+    <input type="text" class="form-control" name="username", placeholder="Username" required>
+
+  </div><br/>
+  <div class="mb-3">
+    <input type="password" class="form-control" name="password", placeholder="Password" required>
+  </div>
+  <br/>
+  <button type="submit" class="btn btn-secondary">Login</button>
+
+</form>
+
+
+
+{% endif %}
+
+{% endblock %}

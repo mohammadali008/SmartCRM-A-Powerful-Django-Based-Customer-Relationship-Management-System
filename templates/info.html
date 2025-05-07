@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<div class="card">
+  <div class="card-header"><strong>
+    	{{ customer.first_name }}
+		{{ customer.last_name }}</strong>
+  </div>
+  <div class="card-body">
+
+
+
+<p class="card-text">
+<strong>Email: </strong>{{ customer.email }}</p>
+
+<p class="card-text">
+<strong>Phone: </strong>{{ customer.phone }}
+</p>
+
+<p class="card-text">
+<strong>Address: </strong>{{ customer.address }}</p>
+
+<p class="card-text">
+<strong>City: </strong>{{ customer.city }}</p>
+
+<p class="card-text">
+<strong>State: </strong>{{ customer.state }}</p>
+
+<p class="card-text">
+<strong>Description: </strong>{{ customer.description }}</p>
+
+<p class="card-text">
+<strong>Date_Of_Birth: </strong>{{ customer.date_of_birth }}</p>
+
+<p class="card-text">
+{#<strong>ID: </strong>{{ customer.id }}</p>#}
+    <h3 >سفارشات/فاکتور</h3>
+    <table class="table table-striped table-hover table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">نام</th>
+      <th scope="col">ایمیل</th>
+      <th scope="col">موبایل</th>
+      <th scope="col">نشانی</th>
+      <th scope="col">شهر</th>
+      <th scope="col">استان</th>
+      <th scope="col">توضیحات</th>
+      <th scope="col">تاریخ تولد</th>
+      <th scope="col">نحوه آشنایی</th>
+    </tr>
+  </thead>
+  <tbody>
+
+{% if orders %}
+	{% for items in orders %}
+		<tr>
+			<td>{{ items.customer.first_name }} {{ customer.last_name }}</td>
+			<td>{{ items.products}}</td>
+			<td>{{ items.date}}</td>
+            <td><a href="{% url 'customer_info' customer.id %}"
+                   class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Info</a></td>
+		</tr>
+	{% endfor %}
+
+{% endif %}
+
+
+	  </tbody>
+	</table>
+    
+  </div>
+</div>
+
+<br/><br/>
+<a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+
+{% endblock %}
